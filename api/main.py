@@ -18,8 +18,10 @@
 
 """
 MediaCrawler WebUI API Server
-Start command: uvicorn api.main:app --port 8080 --reload
+Start command: uvicorn api.main:app --port 8090 --reload
 Or: python -m api.main
+
+Note: 本机 8080 已被 Strata 本地大模型服务占用，故统一使用 8090。
 """
 import asyncio
 import os
@@ -33,6 +35,27 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 
 from .routers import crawler_router, data_router, websocket_router
+
+# ---------------------------------------------------------------------------
+# 修复 Windows 下 StaticFiles 把 .js 当 text/plain 返回导致 WebUI 白屏的问题。
+# 原因：Python 的 mimetypes 会读 Windows 注册表，本机 .js 被登记为 text/plain；
+# 而浏览器对 <script type="module"> 有严格 MIME 校验，text/plain 会被直接拒绝执行，
+# 表现为页面完全空白（#root 里什么都没有）且控制台报 "Expected a JavaScript-or-Wasm
+# module script but the server responded with a MIME type of text/plain"。
+# 这里显式覆盖，避免依赖系统注册表。
+import mimetypes as _mimetypes
+
+for _ext, _mime in {
+    ".js": "application/javascript",
+    ".mjs": "application/javascript",
+    ".css": "text/css",
+    ".json": "application/json",
+    ".svg": "image/svg+xml",
+    ".webp": "image/webp",
+    ".woff": "font/woff",
+    ".woff2": "font/woff2",
+}.items():
+    _mimetypes.add_type(_mime, _ext)
 
 # Project root directory (used for running subprocesses like uv run main.py)
 PROJECT_ROOT = Path(__file__).parent.parent
@@ -202,4 +225,5 @@ if os.path.exists(WEBUI_DIR):
 
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8080)
+    # 本机 8080 被 Strata 占用，统一改 8090；host 收窄到 127.0.0.1 避免暴露到局域网
+    uvicorn.run(app, host="127.0.0.1", port=8090)
