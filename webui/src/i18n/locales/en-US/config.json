@@ -58,7 +58,15 @@
     "downloadMedia": "DOWNLOAD_MEDIA",
     "downloadMediaHint": "Download cover and video (images for image posts). Supports xhs/dy/ks/bili/wb",
     "headlessMode": "HEADLESS_MODE",
-    "headlessModeHint": "Run browser without GUI"
+    "headlessModeHint": "Run browser without GUI",
+    "sortType": "SORT_TYPE",
+    "sortTypeHint": "Only applies to Xiaohongshu search mode",
+    "sortTypePlaceholder": "Select sort order"
+  },
+  "sort": {
+    "general": "General",
+    "popularity_descending": "Most popular",
+    "time_descending": "Latest"
   },
   "button": {
     "initiateScan": "INITIATE SCAN",

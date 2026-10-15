@@ -190,6 +190,14 @@ async def parse_cmd(argv: Optional[Sequence[str]] = None):
                 rich_help_panel="Basic Configuration",
             ),
         ] = config.START_PAGE,
+        sort_type: Annotated[
+            str,
+            typer.Option(
+                "--sort_type",
+                help="Search sorting (xhs only: general=General | popularity_descending=Most popular | time_descending=Latest)",
+                rich_help_panel="Basic Configuration",
+            ),
+        ] = config.SORT_TYPE,
         keywords: Annotated[
             str,
             typer.Option(
@@ -361,6 +369,7 @@ async def parse_cmd(argv: Optional[Sequence[str]] = None):
         config.CRAWLER_TYPE = crawler_type.value
         config.START_PAGE = start
         config.KEYWORDS = keywords
+        config.SORT_TYPE = sort_type
         config.ENABLE_GET_COMMENTS = enable_comment
         config.ENABLE_GET_SUB_COMMENTS = enable_sub_comment
         config.ENABLE_GET_MEDIA = enable_media

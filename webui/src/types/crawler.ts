@@ -6,6 +6,7 @@ export interface CrawlerConfig {
   specified_ids: string  // 详情模式下的帖子/视频ID
   creator_ids: string    // 创作者模式下的创作者ID
   start_page: number
+  sort_type: string  // 搜索结果排序（仅小红书搜索模式生效）
   enable_comments: boolean
   enable_sub_comments: boolean
   enable_media: boolean  // 是否下载媒体（封面/视频/图文图片），支持 xhs/dy/ks/bili/wb

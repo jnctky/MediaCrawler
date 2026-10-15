@@ -11,6 +11,9 @@ import { useCrawlerStore } from '@/store/crawlerStore'
 import { usePlatforms, useConfigOptions, useStartCrawler, useStopCrawler } from '@/hooks/useCrawler'
 import { ParsedIdList } from './ParsedIdList'
 
+// 搜索结果排序选项（仅小红书搜索模式生效，取值来自 media_platform/xhs/field.py SearchSortType）
+const SORT_OPTIONS = ['general', 'popularity_descending', 'time_descending'] as const
+
 type SectionProps = {
   title: string
   description: string
@@ -224,6 +227,27 @@ export function CrawlerConfigPanel() {
                 onChange={(keywords) => updateConfig({ keywords })}
                 disabled={isDisabled}
               />
+            </Field>
+          )}
+
+          {config.crawler_type === 'search' && config.platform === 'xhs' && (
+            <Field label={t('field.sortType')} hint={t('field.sortTypeHint')}>
+              <Select
+                value={config.sort_type}
+                onValueChange={(value) => updateConfig({ sort_type: value })}
+                disabled={isDisabled}
+              >
+                <SelectTrigger className="h-9 text-xs">
+                  <SelectValue placeholder={t('field.sortTypePlaceholder')} />
+                </SelectTrigger>
+                <SelectContent>
+                  {SORT_OPTIONS.map((option) => (
+                    <SelectItem key={option} value={option}>
+                      {t(`sort.${option}`)}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </Field>
           )}
 

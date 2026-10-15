@@ -222,6 +222,10 @@ class CrawlerManager:
         if config.start_page != 1:
             cmd.extend(["--start", str(config.start_page)])
 
+        # Sort type only applies to xhs search mode
+        if config.sort_type and config.platform.value == "xhs" and config.crawler_type.value == "search":
+            cmd.extend(["--sort_type", config.sort_type])
+
         cmd.extend(["--get_comment", "true" if config.enable_comments else "false"])
         cmd.extend(["--get_sub_comment", "true" if config.enable_sub_comments else "false"])
         cmd.extend(["--get_media", "true" if config.enable_media else "false"])

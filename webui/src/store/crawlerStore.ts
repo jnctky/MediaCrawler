@@ -54,6 +54,7 @@ const defaultConfig: CrawlerConfig = {
   specified_ids: '',
   creator_ids: '',
   start_page: 1,
+  sort_type: 'popularity_descending',
   enable_comments: true,
   enable_sub_comments: false,
   enable_media: false,

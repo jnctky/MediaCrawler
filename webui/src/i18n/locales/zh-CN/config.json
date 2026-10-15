@@ -58,7 +58,15 @@
     "downloadMedia": "下载媒体",
     "downloadMediaHint": "下载封面与视频（图文笔记下载图片），支持小红书/抖音/快手/B站/微博",
     "headlessMode": "无头模式",
-    "headlessModeHint": "无 GUI 运行浏览器"
+    "headlessModeHint": "无 GUI 运行浏览器",
+    "sortType": "搜索排序",
+    "sortTypeHint": "仅小红书搜索模式生效",
+    "sortTypePlaceholder": "选择排序方式"
+  },
+  "sort": {
+    "general": "综合",
+    "popularity_descending": "最热",
+    "time_descending": "最新"
   },
   "button": {
     "initiateScan": "开始爬虫",
