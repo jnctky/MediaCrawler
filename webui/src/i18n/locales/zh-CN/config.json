@@ -65,7 +65,10 @@
     "publishTimeFilter": "发布时间筛选",
     "publishTimeFilterHint": "抓取完成后按发布时间本地筛选，结果另存到 data/<平台>/filtered/，原始数据保留（留空表示不限制）",
     "publishTimeFrom": "起始日期",
-    "publishTimeTo": "结束日期"
+    "publishTimeTo": "结束日期",
+    "crawlerMaxNotes": "抓取数量上限",
+    "crawlerMaxNotesHint": "留空使用配置文件默认值；小红书搜索每页固定 20 条，实际结果按 20 取整（如填 50 → 40 条）",
+    "crawlerMaxNotesPlaceholder": "默认"
   },
   "sort": {
     "general": "综合",

@@ -65,7 +65,10 @@
     "publishTimeFilter": "PUBLISH_TIME_FILTER",
     "publishTimeFilterHint": "Filter the crawled data locally by publish time after the crawl; results are saved separately under data/<platform>/filtered/ and the original data is kept (empty = no limit)",
     "publishTimeFrom": "FROM",
-    "publishTimeTo": "TO"
+    "publishTimeTo": "TO",
+    "crawlerMaxNotes": "MAX_NOTES",
+    "crawlerMaxNotesHint": "Empty = value from config file. Xiaohongshu search returns 20 notes per page, so the result is rounded down to a multiple of 20 (e.g. 50 -> 40)",
+    "crawlerMaxNotesPlaceholder": "default"
   },
   "sort": {
     "general": "General",

@@ -57,6 +57,7 @@ const defaultConfig: CrawlerConfig = {
   sort_type: 'popularity_descending',
   filter_start_date: '',
   filter_end_date: '',
+  max_notes_count: null,
   enable_comments: true,
   enable_sub_comments: false,
   enable_media: false,

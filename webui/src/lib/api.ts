@@ -18,6 +18,7 @@ export interface CrawlerConfig {
   sort_type: string
   filter_start_date: string
   filter_end_date: string
+  max_notes_count: number | null
   enable_comments: boolean
   enable_sub_comments: boolean
   enable_media: boolean

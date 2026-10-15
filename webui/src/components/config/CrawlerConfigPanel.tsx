@@ -218,6 +218,23 @@ export function CrawlerConfigPanel() {
             </Field>
           </div>
 
+          <Field label={t('field.crawlerMaxNotes')} hint={t('field.crawlerMaxNotesHint')}>
+            <Input
+              type="number"
+              min={1}
+              max={10000}
+              placeholder={t('field.crawlerMaxNotesPlaceholder')}
+              value={config.max_notes_count ?? ''}
+              onChange={(e) => {
+                const raw = e.target.value.trim()
+                const parsed = parseInt(raw, 10)
+                updateConfig({ max_notes_count: raw === '' || Number.isNaN(parsed) ? null : parsed })
+              }}
+              disabled={isDisabled}
+              className="h-9 text-xs"
+            />
+          </Field>
+
           {/* 根据爬虫类型显示不同的输入框 */}
           {config.crawler_type === 'search' && (
             <Field label={t('field.keywords')} hint={t('field.keywordsHint')}>

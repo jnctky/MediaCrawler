@@ -9,6 +9,7 @@ export interface CrawlerConfig {
   sort_type: string  // 搜索结果排序（仅小红书搜索模式生效）
   filter_start_date: string  // 发布时间筛选起始（YYYY-MM-DD，留空不限）
   filter_end_date: string    // 发布时间筛选结束（YYYY-MM-DD，留空不限）
+  max_notes_count: number | null  // 抓取数量上限，null 表示使用配置默认值
   enable_comments: boolean
   enable_sub_comments: boolean
   enable_media: boolean  // 是否下载媒体（封面/视频/图文图片），支持 xhs/dy/ks/bili/wb
