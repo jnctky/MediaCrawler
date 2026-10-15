@@ -70,6 +70,8 @@ class CrawlerStartRequest(BaseModel):
     creator_ids: str = ""  # Creator ID list for creator mode, comma-separated
     start_page: int = 1
     sort_type: Optional[str] = None  # Search sort type (xhs: general | popularity_descending | time_descending)
+    filter_start_date: Optional[str] = None  # Local publish-time filter, inclusive start (YYYY-MM-DD)
+    filter_end_date: Optional[str] = None  # Local publish-time filter, inclusive end (YYYY-MM-DD)
     enable_comments: bool = True
     enable_sub_comments: bool = False
     enable_media: bool = False

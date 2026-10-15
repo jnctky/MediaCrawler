@@ -61,7 +61,11 @@
     "headlessModeHint": "Run browser without GUI",
     "sortType": "SORT_TYPE",
     "sortTypeHint": "Only applies to Xiaohongshu search mode",
-    "sortTypePlaceholder": "Select sort order"
+    "sortTypePlaceholder": "Select sort order",
+    "publishTimeFilter": "PUBLISH_TIME_FILTER",
+    "publishTimeFilterHint": "Filter the crawled data locally by publish time after the crawl; results are saved separately under data/<platform>/filtered/ and the original data is kept (empty = no limit)",
+    "publishTimeFrom": "FROM",
+    "publishTimeTo": "TO"
   },
   "sort": {
     "general": "General",

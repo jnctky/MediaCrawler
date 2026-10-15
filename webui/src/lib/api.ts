@@ -16,6 +16,8 @@ export interface CrawlerConfig {
   keywords: string
   start_page: number
   sort_type: string
+  filter_start_date: string
+  filter_end_date: string
   enable_comments: boolean
   enable_sub_comments: boolean
   enable_media: boolean

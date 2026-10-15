@@ -61,7 +61,11 @@
     "headlessModeHint": "无 GUI 运行浏览器",
     "sortType": "搜索排序",
     "sortTypeHint": "仅小红书搜索模式生效",
-    "sortTypePlaceholder": "选择排序方式"
+    "sortTypePlaceholder": "选择排序方式",
+    "publishTimeFilter": "发布时间筛选",
+    "publishTimeFilterHint": "抓取完成后按发布时间本地筛选，结果另存到 data/<平台>/filtered/，原始数据保留（留空表示不限制）",
+    "publishTimeFrom": "起始日期",
+    "publishTimeTo": "结束日期"
   },
   "sort": {
     "general": "综合",

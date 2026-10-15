@@ -367,6 +367,35 @@ export function CrawlerConfigPanel() {
             </Select>
           </Field>
 
+          <Field label={t('field.publishTimeFilter')} hint={t('field.publishTimeFilterHint')}>
+            <div className="grid grid-cols-2 gap-3">
+              <div className="space-y-1">
+                <p className="text-[10px] text-cyber-text-muted font-mono">
+                  {t('field.publishTimeFrom')}
+                </p>
+                <Input
+                  type="date"
+                  value={config.filter_start_date}
+                  onChange={(e) => updateConfig({ filter_start_date: e.target.value })}
+                  disabled={isDisabled}
+                  className="h-9 text-xs"
+                />
+              </div>
+              <div className="space-y-1">
+                <p className="text-[10px] text-cyber-text-muted font-mono">
+                  {t('field.publishTimeTo')}
+                </p>
+                <Input
+                  type="date"
+                  value={config.filter_end_date}
+                  onChange={(e) => updateConfig({ filter_end_date: e.target.value })}
+                  disabled={isDisabled}
+                  className="h-9 text-xs"
+                />
+              </div>
+            </div>
+          </Field>
+
           <div className="space-y-2">
             <div className="flex items-center gap-3 rounded-lg border border-cyber-border-subtle bg-cyber-bg-tertiary/30 p-2.5 hover:border-cyber-border-DEFAULT transition-colors">
               <Checkbox

@@ -243,6 +243,57 @@ class CrawlerManager:
 
         return cmd
 
+    async def _run_time_filter(self):
+        """Filter the freshly crawled data by publish time.
+
+        Runs after a successful crawl. Original data files are left untouched;
+        kept records are written to ``data/<platform>/filtered/filtered_*.json``.
+        """
+        config = self.current_config
+        if config is None:
+            return
+
+        since = getattr(config, "filter_start_date", None)
+        until = getattr(config, "filter_end_date", None)
+        if not since and not until:
+            return
+
+        from .time_filter import filter_data_dir
+
+        await self._push_log(self._create_log_entry(
+            f"[TimeFilter] 本地时间筛选: {since or '不限'} ~ {until or '不限'}", "info"))
+
+        try:
+            loop = asyncio.get_running_loop()
+            result = await loop.run_in_executor(
+                None, filter_data_dir, config.platform.value, since, until
+            )
+        except Exception as exc:
+            await self._push_log(self._create_log_entry(f"[TimeFilter] 筛选失败: {exc}", "error"))
+            return
+
+        if result.get("skipped"):
+            return
+
+        for path, count in result.get("scanned", []):
+            await self._push_log(self._create_log_entry(
+                f"[TimeFilter] 读取 {count} 条 <- {path}", "debug"))
+
+        notes_before, notes_kept = result.get("notes", (0, 0))
+        comments_before, comments_kept = result.get("comments", (0, 0))
+        span = result.get("notes_span") or "-"
+        await self._push_log(self._create_log_entry(
+            f"[TimeFilter] 笔记 {notes_before} -> {notes_kept} 条（{span}），"
+            f"评论 {comments_before} -> {comments_kept} 条", "success"))
+
+        outputs = result.get("outputs", [])
+        if outputs:
+            for path in outputs:
+                await self._push_log(self._create_log_entry(f"[TimeFilter] 已写出 {path}", "success"))
+        else:
+            await self._push_log(self._create_log_entry(
+                "[TimeFilter] 该时间范围内没有数据，可放宽条件后重试", "warning"))
+
     async def _read_output(self):
         """Asynchronously read process output"""
         loop = asyncio.get_event_loop()
@@ -281,6 +332,11 @@ class CrawlerManager:
                     entry = self._create_log_entry(f"Crawler exited with code: {exit_code}", "warning")
                 await self._push_log(entry)
                 self.status = "idle"
+
+                # Local publish-time filter: only after a successful crawl, and
+                # it never modifies the original data files.
+                if exit_code == 0:
+                    await self._run_time_filter()
 
         except asyncio.CancelledError:
             pass
